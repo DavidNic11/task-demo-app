@@ -1,39 +1,35 @@
 "use server"
 
-/**
- * Thin wrapper that duplicates the task-mutation helpers so any legacy
- * imports from `app/tasks/actions` continue to work even after we moved the
- * real logic into `(dashboard)/tasks/actions.ts`.
- */
-
 import { createClient } from "@/lib/supabase/server"
 import { revalidatePath } from "next/cache"
 
-export async function updateTaskStatus(taskId: number, isCompleted: boolean) {
+/**
+ * Update a task’s status (e.g. todo → done)                           */
+export async function updateTaskStatus(taskId: string, newStatus: string) {
   const supabase = createClient()
-  const newStatus = isCompleted ? "done" : "todo"
 
   const { error } = await supabase.from("tasks").update({ status: newStatus }).eq("id", taskId)
 
   if (error) {
-    console.error("Error updating task status:", error)
-    throw new Error("Could not update task status.")
+    throw new Error(error.message)
   }
 
-  revalidatePath("/tasks")
-  revalidatePath("/")
+  /* Ensure any pages that list tasks pick up the change */
+  revalidatePath("/(dashboard)/tasks")
+  revalidatePath("/(dashboard)/board")
 }
 
-export async function deleteTask(taskId: number) {
+/**
+ * Delete a task                                                       */
+export async function deleteTask(taskId: string) {
   const supabase = createClient()
 
   const { error } = await supabase.from("tasks").delete().eq("id", taskId)
 
   if (error) {
-    console.error("Error deleting task:", error)
-    throw new Error("Could not delete task.")
+    throw new Error(error.message)
   }
 
-  revalidatePath("/tasks")
-  revalidatePath("/")
+  revalidatePath("/(dashboard)/tasks")
+  revalidatePath("/(dashboard)/board")
 }

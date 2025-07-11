@@ -1,37 +1,35 @@
 "use server"
 
 import { createClient } from "@/lib/supabase/server"
-import { redirect } from "next/navigation"
 import { revalidatePath } from "next/cache"
+import { redirect } from "next/navigation"
 
 /**
- * LOG IN
- * ------------------------------------------------------------------ */
-export async function login(_prevState: any, formData: FormData) {
-  const supabase = createClient()
+ * LOG IN  ------------------------------------------------------------------ */
+export async function login(formData: FormData) {
   const email = formData.get("email") as string
   const password = formData.get("password") as string
 
+  const supabase = createClient()
   const { error } = await supabase.auth.signInWithPassword({ email, password })
 
   if (error) {
     throw new Error(error.message)
   }
 
-  // refresh caches and send the user to the dashboard
   revalidatePath("/", "layout")
   redirect("/")
 }
 
 /**
- * SIGN UP
- * ------------------------------------------------------------------ */
-export async function signup(_prevState: any, formData: FormData) {
-  const supabase = createClient()
+ * SIGN UP  ---------------------------------------------------------------- */
+export async function signup(formData: FormData) {
   const email = formData.get("email") as string
   const password = formData.get("password") as string
 
-  // ── build an absolute redirect URL for the confirmation email
+  const supabase = createClient()
+
+  /* Build an ABSOLUTE redirect URL for Supabase e-mails */
   const baseUrl =
     process.env.NEXT_PUBLIC_BASE_URL ||
     (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000")
@@ -46,14 +44,12 @@ export async function signup(_prevState: any, formData: FormData) {
     throw new Error(error.message)
   }
 
-  // for demo purposes we immediately send users to the dashboard
   revalidatePath("/", "layout")
   redirect("/")
 }
 
 /**
- * LOG OUT
- * ------------------------------------------------------------------ */
+ * LOG OUT  ----------------------------------------------------------------- */
 export async function logout() {
   const supabase = createClient()
   await supabase.auth.signOut()
