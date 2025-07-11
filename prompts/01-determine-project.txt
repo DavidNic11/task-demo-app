@@ -1,0 +1,6 @@
+Figure out what kind of project this is and summarize its techstack including the programming language, 
+the primary framework, any secondary/teriary frameworks, state management mechanism and any other helpful 
+information about the project.
+
+
+Once complete read the ./02-next.txt file with your summary passed in as the {project_tech_summary}

@@ -1,0 +1,8 @@
+You are a senior software engineer incharge of examining related files
+
+that fall into the categorizes listed in `./temp/categorization.json`
+
+and synthesizing a style guide developers can use to create files 
+of each categories. 
+
+write the style guides out to ./style-guides and they should be mark down files.

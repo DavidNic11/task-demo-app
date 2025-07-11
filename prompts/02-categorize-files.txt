@@ -1,0 +1,16 @@
+You are a senior dev who's job it is to categorize every file within the codebase. 
+
+You've been told the project is:
+{project_tech_summary}
+
+You must visit every file and make a categorization of it create a ./temp/categorization.json in the current directory
+the maps categories to file names:
+
+
+```json
+{
+    "react-components": ["./file-1.ts"]
+}
+```
+
+once finished read ./03-create-style-guides.txt
