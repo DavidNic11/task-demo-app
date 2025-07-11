@@ -1,0 +1,41 @@
+You're analyzing a codebase with the goal of understanding its structure and major concerns. The tech stack is summarized in ./temp/techstack.md. Categorized files are listed in ./temp/categorization.json.
+
+Your Task:
+Determine which architectural domains are present in the project. Consider:
+- File structure and naming patterns
+- Framework conventions
+- Imports and usage patterns
+- Configuration files
+- Common architectural markers (e.g., components/, routes/, handlers/, services/, cli/, etc.)
+
+Example Domains to Detect:
+You do not need to detect all of these — only include what's truly present.
+There may also be domains that aren't listed here but are relevant to this specific project. Include any meaningful domains you identify.
+
+Examples:
+- ui: UI components, templates, or rendering logic
+- routing: App or API routing (e.g., Next.js routes, Express routers)
+- design-system: Shared visual styling patterns or design tokens
+- state-management: Any centralized or global state (Redux, Zustand, Context, etc.)
+- data-layer: Persistence and data-fetching (ORMs, REST clients, GraphQL)
+- auth: Authentication / access control logic
+- cli: Command-line utilities
+- jobs: Background workers or schedulers
+- business-logic: Domain logic separate from transport/UI layers
+- build-system: Tooling, scripts, and config files for build/test/deploy
+
+Output:
+Write a JSON array to ./temp/architecture-domains.json like so:
+
+[
+  "ui",
+  "routing",
+  "state-management",
+  "data-layer",
+  "build-system",
+  "business-logic"
+]
+
+Only include domains you find concrete evidence for based on the actual codebase.
+
+Once completed read ./04-per-domain-deep-dive.txt and continue on accordingly

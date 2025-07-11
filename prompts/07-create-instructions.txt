@@ -1,0 +1,64 @@
+You have completed a full analysis of the project and must now generate a Copilot instruction file based strictly on your findings.
+
+This file will guide future Copilot behavior. Accuracy and alignment with the codebase are essential.
+
+---
+
+## Available Context:
+
+1. ./temp/techstack.md — describes the languages, frameworks, libraries, and tools used in the project.
+2. ./temp/architecture-domains.json — lists the architectural domains present in the codebase (e.g., "ui", "state-management", "data-layer").
+3. ./temp/{domain}.md — contains detailed analysis and real examples for each domain listed above.
+4. ./style-guides/*.md — contains exact patterns and conventions found in the codebase, categorized by file type (e.g., react-components, hooks, api-clients).
+
+---
+
+## Your Task:
+
+Generate a single markdown file:  
+**`./copilot.instructions.md`**
+
+The purpose of this file is to help Copilot generate code that aligns with the actual conventions and patterns used in this project.
+
+---
+
+## Required Structure:
+
+The file should follow this outline:
+
+1. **Tech Stack**  
+   - Summarize the languages, frameworks, libraries, and tools used in the project  
+   - Source: `./temp/techstack.md`
+
+2. **Architectural Overview**  
+   - List each domain found in `architecture-domains.json`  
+   - Briefly describe how each domain is implemented, based on `./temp/{domain}.md`
+
+3. **Conventions by Category**  
+   - For each category found in `./style-guides/*.md`, summarize coding conventions and patterns  
+   - Include representative examples or code snippets taken directly from the style guide
+
+4. **Behavioral Summary for Copilot**  
+   - Summarize how Copilot should behave, **based only on what is actually found in the project**
+   - Examples:
+     - “Use Zustand for state management (found in `stores/`)”
+     - “Use React Query’s `useQuery` and `useMutation` hooks for data fetching”
+     - “Use `clsx` for conditional class names”
+
+---
+
+## Rules:
+
+- Base all content exclusively on the provided files — do not include outside best practices or assumptions
+- Do not include features, libraries, or patterns not observed in the actual project
+- Use concise section headings, bullet points, and real examples
+- Be practical — this file should directly influence how Copilot generates future code
+
+---
+
+Only output the contents of the final markdown file:  
+**./copilot.instructions.md**
+
+Do not include narration or explanations.
+
+Once completed read ./08-instruction-validation.txt and continue on accordingly

@@ -1,0 +1,24 @@
+For each of the domains listed in ./temp/architecture-domains.json
+
+You're analyzing the codebase to understand how it implements the architectural domain: "{domain}".
+
+The tech stack is summarized in ./temp/techstack.md.  
+Relevant files for this domain are listed in ./temp/categorization.json — look for files in the "{domain}" category (if present).
+
+Your Task:
+- Examine relevant files for this domain.
+- Identify consistent patterns, tools, conventions, and practices.
+- Include real code examples that reflect actual usage in the codebase.
+- Focus on what the project is doing — not what it should do.
+
+Write your findings to: ./temp/{domain}.md
+
+Requirements:
+- Use exact code examples from project files.
+- Do not invent recommendations or include external best practices.
+- Only describe what is actually used in this project.
+
+Your goal is to document how the "{domain}" domain is implemented within this specific codebase.
+
+Once completed read ./05-style-guide-generation.txt and continue on accordingly
+

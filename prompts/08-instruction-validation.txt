@@ -1,0 +1,58 @@
+Copilot Instruction File Quality Check
+
+You are now responsible for validating the accuracy and usefulness of ./copilot.instructions.md.
+
+The goal is to ensure that the instructions reflect real patterns in the codebase, and that Copilot would generate code that matches the project's conventions.
+
+---
+
+## Available Context:
+
+- ./copilot.instructions.md — the file you are reviewing
+- ./style-guides/*.md — the actual patterns and examples used in the project
+- ./temp/categorization.json — used to identify real files by category (e.g., "react-components", "hooks", etc.)
+
+---
+
+## Your Task:
+
+1. **Interpret the Instruction File**
+   - Read ./copilot.instructions.md to understand what it tells Copilot to generate.
+
+2. **Simulate Copilot Output**
+   For 2–3 categories (e.g., react-components, hooks), choose one real file per category and answer the question:
+   > “If Copilot followed these instructions and was asked to create a new version of this file, what would it generate?”
+
+   - Generate the *expected* code Copilot might produce.
+   - Then compare that simulated code to the real file found in the project.
+
+3. **Compare for Fidelity**
+   - Is the style, structure, and logic close to what's actually in the code?
+   - Are there important project-specific details missing from the instruction file that led to mismatches?
+
+4. **Log Discrepancies**
+   - For each test case, write down whether the output matched and what caused any differences.
+
+---
+
+## Output:
+
+Write your results to:  
+**./temp/instruction-validation.md**
+
+Each entry should include:
+- 📂 The file being compared
+- 🤖 Simulated Copilot output based on the instruction file
+- ✅ Whether it matched real code conventions
+- 🛠️ Notes on mismatches (if any)
+- 📌 Suggestions for how to improve the instruction file
+
+---
+
+## Rules:
+
+- Do not use external assumptions — only compare the instructions against real code from the project
+- Simulations should be realistic — what Copilot would actually output, not idealized examples
+- Prioritize usefulness: would this instruction file help Copilot produce high-quality, idiomatic project code?
+
+Do not output anything except the markdown content of ./temp/instruction-validation.md

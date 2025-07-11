@@ -1,6 +1,11 @@
-Figure out what kind of project this is and summarize its techstack including the programming language, 
-the primary framework, any secondary/tertiary frameworks, state management mechanism and any other helpful 
-information about the project.
+Determine the type of project and summarize the tech stack. Your summary should include:
 
+- Programming language(s)
+- Primary framework
+- Any secondary or tertiary frameworks
+- State management approach
+- Any other relevant technologies or patterns
 
-Once complete read the ./02-categorize-files.txt file with your summary passed in as the {project_tech_summary}
+Add all your findings to ./temp/techstack.md
+
+Once completed read ./02-categorize-files.txt and continue on accordingly

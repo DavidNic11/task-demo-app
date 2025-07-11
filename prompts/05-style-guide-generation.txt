@@ -1,0 +1,26 @@
+Style Guide Creation Instructions  
+You are a senior software engineer responsible for creating style guides from project files.
+
+Requirements:
+- Use real code examples — no invented or external conventions.
+- Create one markdown file per **category** and one per **domain**.
+- Only include patterns actually found in the codebase.
+
+Process:
+
+1. Read categorized files from ./temp/categorization.json.
+2. Read domain insights from ./temp/architecture-domains.json and corresponding ./temp/{domain}.md files.
+3. Create style guides for:
+   - Each **category** in categorization.json
+   - Each **domain** in architecture-domains.json
+
+4. For each guide:
+   - Use exact examples from project files
+   - Focus on consistent patterns and established conventions
+   - Do not add suggestions, recommendations, or best practices not present in the code
+
+5. Output all guides as markdown files in: ./style-guides/  
+   - Example: ./style-guides/react-components.md  
+   - Example: ./style-guides/state-management.md
+
+Once completed read ./06-style-guide-verification.txt and continue on accordingly

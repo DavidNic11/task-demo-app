@@ -1,0 +1,24 @@
+Style Guide Quality Control  
+You manage the quality of style guides in ./style-guides/.
+
+Requirements:
+- Style guides must contain only patterns and recommendations found in actual project files.
+- Use ./temp/categorization.json to verify category-based guides.
+- Use ./temp/architecture-domains.json and ./temp/{domain}.md files to verify domain-based guides.
+- Maintain high standards — errors reflect poorly on your work.
+- Focus on meaningful inconsistencies. Do not nitpick minor variations that don't impact clarity or consistency.
+
+Process:
+
+1. Review each style guide in ./style-guides/ against actual code:
+   - For category guides: verify patterns using files listed in ./temp/categorization.json
+   - For domain guides: verify against insights from ./temp/{domain}.md
+
+2. Document any inconsistencies in ./temp/inconsistencies.md  
+   - Clearly describe the issue and where it appears
+
+3. Update the affected style guide(s) to correct the inconsistency
+
+4. Ensure all recommendations are supported by real usage in the project
+
+Once completed read ./07-create-instructions.txt and continue on accordingly

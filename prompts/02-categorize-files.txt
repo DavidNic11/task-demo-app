@@ -1,16 +1,22 @@
-You are a senior dev who's job it is to categorize every file within the codebase. 
+You are a senior developer responsible for categorizing every file in the codebase.
 
-You've been told the project is:
-{project_tech_summary}
+You’ve been informed that the project is defined as: ./temp/techstack.md (read this file first)
 
-You must visit every file and make a categorization of it create a ./temp/categorization.json in the current directory
-the maps categories to file names:
+Your task:
+- Visit every file in the codebase.
+- Categorize each file based on its role, such as: react-components, utility-functions, hooks, types, etc.
 
+Output the categorization as a JSON file at:
+./temp/categorization.json
 
 ```json
 {
-    "react-components": ["./file-1.ts"]
+  "react-components": ["./src/components/Button.tsx"],
+  "hooks": ["./src/hooks/useUser.ts"]
 }
+
 ```
 
-once finished read ./03-create-style-guides.txt
+A single file can appear in multiple categories if appropriate.
+
+After writing ./temp/categorization.json, read the contents of ./03-identify-architecture.txt and proceed accordingly.
