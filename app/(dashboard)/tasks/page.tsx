@@ -7,20 +7,17 @@ import { TaskList } from "@/components/task-list"
 import { TaskFilters } from "@/components/task-filters"
 import { createClient } from "@/lib/supabase/server"
 
+export const revalidate = 0
+
 export default async function TasksPage() {
   const supabase = createClient()
-  const { data: tasks, error } = await supabase
+
+  const tasksPromise = supabase
     .from("tasks")
     .select(
       `
-      id,
-      title,
-      description,
-      status,
-      priority,
-      due_date,
+      *,
       profiles (
-        id,
         full_name,
         avatar_url
       )
@@ -28,23 +25,17 @@ export default async function TasksPage() {
     )
     .order("created_at", { ascending: false })
 
-  if (error) {
-    console.error("Error fetching tasks:", error)
-    return <p className="p-8">Could not load tasks.</p>
-  }
+  const profilesPromise = supabase.from("profiles").select("*")
 
-  // Map data to match component expectation
-  const formattedTasks = tasks.map((task) => ({
-    ...task,
-    assignee: task.profiles?.full_name || "Unassigned",
-    avatar: task.profiles?.avatar_url,
-    initials:
-      task.profiles?.full_name
-        ?.split(" ")
-        .map((n) => n[0])
-        .join("") || "U",
-    completed: task.status === "done",
-  }))
+  const [{ data: tasks, error: tasksError }, { data: profiles, error: profilesError }] = await Promise.all([
+    tasksPromise,
+    profilesPromise,
+  ])
+
+  if (tasksError || profilesError) {
+    console.error("Error fetching data:", tasksError || profilesError)
+    return <p className="p-8">Could not load data. Please try again later.</p>
+  }
 
   return (
     <div className="flex-1 space-y-4 p-4 md:p-8 pt-6">
@@ -67,7 +58,7 @@ export default async function TasksPage() {
       </div>
 
       <Suspense fallback={<div>Loading tasks...</div>}>
-        <TaskList initialTasks={formattedTasks} />
+        <TaskList initialTasks={tasks || []} profiles={profiles || []} />
       </Suspense>
     </div>
   )

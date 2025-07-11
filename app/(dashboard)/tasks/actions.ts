@@ -92,3 +92,18 @@ export async function deleteTask(taskId: number) {
   revalidatePath("/(dashboard)/board", "layout")
   revalidatePath("/(dashboard)", "layout")
 }
+
+export async function updateTaskColumn(taskId: number, newStatus: "todo" | "in_progress" | "review" | "done") {
+  const supabase = createClient()
+  const { error } = await supabase.from("tasks").update({ status: newStatus }).eq("id", taskId)
+
+  if (error) {
+    console.error("Error updating task column:", error)
+    return { success: false, message: "Could not update task status." }
+  }
+
+  revalidatePath("/(dashboard)/board")
+  revalidatePath("/(dashboard)/tasks")
+  revalidatePath("/(dashboard)")
+  return { success: true }
+}

@@ -1,6 +1,6 @@
 "use client"
 
-import { useOptimistic, useTransition, useState } from "react"
+import { useOptimistic, useTransition } from "react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -14,15 +14,15 @@ import { format } from "date-fns"
 import { EditTaskForm } from "./edit-task-form"
 import type { Database } from "@/lib/database.types"
 
-type Task = Database["public"]["Tables"]["tasks"]["Row"] & {
+type TaskWithProfile = Database["public"]["Tables"]["tasks"]["Row"] & {
   profiles: Pick<Database["public"]["Tables"]["profiles"]["Row"], "full_name" | "avatar_url"> | null
 }
 type Profile = Database["public"]["Tables"]["profiles"]["Row"]
 
-export function TaskList({ initialTasks, profiles }: { initialTasks: Task[]; profiles: Profile[] }) {
+export function TaskList({ initialTasks, profiles }: { initialTasks: TaskWithProfile[]; profiles: Profile[] }) {
   const [optimisticTasks, setOptimisticTasks] = useOptimistic(
     initialTasks,
-    (state, { action, task }: { action: "delete" | "toggle"; task: Task | { id: number } }) => {
+    (state, { action, task }: { action: "delete" | "toggle"; task: TaskWithProfile | { id: number } }) => {
       if (action === "delete") {
         return state.filter((t) => t.id !== task.id)
       }
@@ -33,7 +33,6 @@ export function TaskList({ initialTasks, profiles }: { initialTasks: Task[]; pro
     },
   )
   const [isPending, startTransition] = useTransition()
-  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false)
 
   const handleDelete = (taskId: number) => {
     startTransition(() => {
@@ -42,24 +41,26 @@ export function TaskList({ initialTasks, profiles }: { initialTasks: Task[]; pro
     })
   }
 
-  const handleToggle = (task: Task) => {
+  const handleToggle = (task: TaskWithProfile) => {
     startTransition(() => {
       setOptimisticTasks({ action: "toggle", task })
       updateTaskStatus(task.id, task.status !== "done")
     })
   }
 
-  const getInitials = (name: string) => {
+  const getInitials = (name: string | null) => {
+    if (!name) return "??"
     return name
       .split(" ")
       .map((n) => n[0])
       .join("")
+      .toUpperCase()
   }
 
   return (
     <div className="space-y-4">
       {optimisticTasks.map((task) => (
-        <Dialog key={task.id} open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
+        <Dialog key={task.id}>
           <Card className={task.status === "done" ? "bg-muted/50" : ""}>
             <CardContent className="p-4">
               <div className="flex items-start justify-between">
@@ -115,9 +116,7 @@ export function TaskList({ initialTasks, profiles }: { initialTasks: Task[]; pro
                             src={task.profiles?.avatar_url || undefined}
                             alt={task.profiles?.full_name || ""}
                           />
-                          <AvatarFallback className="text-xs">
-                            {getInitials(task.profiles?.full_name || "??")}
-                          </AvatarFallback>
+                          <AvatarFallback className="text-xs">{getInitials(task.profiles?.full_name)}</AvatarFallback>
                         </Avatar>
                         <span className="text-muted-foreground">{task.profiles?.full_name || "Unassigned"}</span>
                       </div>
@@ -138,7 +137,7 @@ export function TaskList({ initialTasks, profiles }: { initialTasks: Task[]; pro
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align="end">
                     <DialogTrigger asChild>
-                      <DropdownMenuItem>
+                      <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
                         <Edit className="mr-2 h-4 w-4" />
                         Edit
                       </DropdownMenuItem>
@@ -156,7 +155,7 @@ export function TaskList({ initialTasks, profiles }: { initialTasks: Task[]; pro
             <DialogHeader>
               <DialogTitle>Edit Task</DialogTitle>
             </DialogHeader>
-            <EditTaskForm task={task} profiles={profiles} onFinish={() => setIsEditDialogOpen(false)} />
+            <EditTaskForm task={task} profiles={profiles} />
           </DialogContent>
         </Dialog>
       ))}
