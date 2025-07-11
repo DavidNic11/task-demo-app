@@ -4,6 +4,21 @@ import { Search } from "lucide-react"
 import { TeamList } from "@/components/team-list"
 import { TeamStats } from "@/components/team-stats"
 import { InviteTeamMember } from "@/components/invite-team-member"
+import { createClient } from "@/lib/supabase/server"
+import type { Database } from "@/lib/database.types"
+
+type Profile = Database["public"]["Tables"]["profiles"]["Row"]
+
+async function TeamData() {
+  const supabase = createClient()
+  const { data: profiles, error } = await supabase.from("profiles").select("*")
+
+  if (error) {
+    return <p className="text-destructive">Could not load team members.</p>
+  }
+
+  return <TeamList profiles={profiles || []} />
+}
 
 export default function TeamPage() {
   return (
@@ -22,8 +37,8 @@ export default function TeamPage() {
 
       <TeamStats />
 
-      <Suspense fallback={<div>Loading team...</div>}>
-        <TeamList />
+      <Suspense fallback={<div className="text-center p-8">Loading team...</div>}>
+        <TeamData />
       </Suspense>
     </div>
   )
