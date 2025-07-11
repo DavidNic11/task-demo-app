@@ -1,29 +1,43 @@
 "use client"
 
-import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis, CartesianGrid, Tooltip } from "recharts"
+import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis, Tooltip, Legend } from "recharts"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 
-const data = [
-  { name: "Jan", total: 45, completed: 32 },
-  { name: "Feb", total: 52, completed: 41 },
-  { name: "Mar", total: 48, completed: 38 },
-  { name: "Apr", total: 61, completed: 52 },
-  { name: "May", total: 55, completed: 49 },
-  { name: "Jun", total: 67, completed: 58 },
-]
+interface TaskStats {
+  month: string
+  total: number
+  completed: number
+}
 
-export function DashboardCharts() {
+export function DashboardCharts({ data }: { data: TaskStats[] }) {
   return (
-    <div className="space-y-4">
-      <ResponsiveContainer width="100%" height={300}>
-        <BarChart data={data}>
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="name" />
-          <YAxis />
-          <Tooltip />
-          <Bar dataKey="total" fill="#8884d8" name="Total Tasks" />
-          <Bar dataKey="completed" fill="#82ca9d" name="Completed" />
-        </BarChart>
-      </ResponsiveContainer>
-    </div>
+    <Card>
+      <CardHeader>
+        <CardTitle>Task Overview</CardTitle>
+      </CardHeader>
+      <CardContent className="pl-2">
+        <ResponsiveContainer width="100%" height={350}>
+          <BarChart data={data}>
+            <XAxis dataKey="month" stroke="#888888" fontSize={12} tickLine={false} axisLine={false} />
+            <YAxis
+              stroke="#888888"
+              fontSize={12}
+              tickLine={false}
+              axisLine={false}
+              tickFormatter={(value) => `${value}`}
+            />
+            <Tooltip
+              contentStyle={{
+                backgroundColor: "hsl(var(--background))",
+                borderColor: "hsl(var(--border))",
+              }}
+            />
+            <Legend wrapperStyle={{ fontSize: "14px" }} />
+            <Bar dataKey="total" name="Total Tasks" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} />
+            <Bar dataKey="completed" name="Completed" fill="hsl(var(--primary) / 0.5)" radius={[4, 4, 0, 0]} />
+          </BarChart>
+        </ResponsiveContainer>
+      </CardContent>
+    </Card>
   )
 }

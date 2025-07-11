@@ -1,58 +1,38 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import type { Database } from "@/lib/database.types"
 
-const activities = [
-  {
-    user: "Alice Johnson",
-    action: "completed task",
-    task: "Update user authentication",
-    time: "2 minutes ago",
-    avatar: "/placeholder.svg?height=32&width=32",
-    initials: "AJ",
-  },
-  {
-    user: "Bob Smith",
-    action: "created task",
-    task: "Design new landing page",
-    time: "1 hour ago",
-    avatar: "/placeholder.svg?height=32&width=32",
-    initials: "BS",
-  },
-  {
-    user: "Carol Davis",
-    action: "commented on",
-    task: "Fix mobile responsiveness",
-    time: "3 hours ago",
-    avatar: "/placeholder.svg?height=32&width=32",
-    initials: "CD",
-  },
-  {
-    user: "David Wilson",
-    action: "assigned task",
-    task: "Database optimization",
-    time: "5 hours ago",
-    avatar: "/placeholder.svg?height=32&width=32",
-    initials: "DW",
-  },
-]
+type Activity = Database["public"]["Tables"]["activity"]["Row"] & {
+  profiles: Pick<Database["public"]["Tables"]["profiles"]["Row"], "full_name" | "avatar_url"> | null
+}
 
-export function RecentActivity() {
+export function RecentActivity({ activities }: { activities: Activity[] | null }) {
   return (
-    <div className="space-y-4">
-      {activities.map((activity, index) => (
-        <div key={index} className="flex items-center space-x-4">
-          <Avatar className="h-8 w-8">
-            <AvatarImage src={activity.avatar || "/placeholder.svg"} alt={activity.user} />
-            <AvatarFallback>{activity.initials}</AvatarFallback>
-          </Avatar>
-          <div className="flex-1 space-y-1">
-            <p className="text-sm">
-              <span className="font-medium">{activity.user}</span> {activity.action}{" "}
-              <span className="font-medium">{activity.task}</span>
-            </p>
-            <p className="text-xs text-muted-foreground">{activity.time}</p>
-          </div>
-        </div>
-      ))}
-    </div>
+    <Card>
+      <CardHeader>
+        <CardTitle>Recent Activity</CardTitle>
+      </CardHeader>
+      <CardContent className="space-y-4">
+        {activities && activities.length > 0 ? (
+          activities.map((activity) => (
+            <div key={activity.id} className="flex items-center">
+              <Avatar className="h-9 w-9">
+                <AvatarImage src={activity.profiles?.avatar_url || "/placeholder-user.jpg"} alt="Avatar" />
+                <AvatarFallback>{activity.profiles?.full_name?.charAt(0) || "U"}</AvatarFallback>
+              </Avatar>
+              <div className="ml-4 space-y-1">
+                <p className="text-sm font-medium leading-none">{activity.profiles?.full_name || "A user"}</p>
+                <p className="text-sm text-muted-foreground">{activity.details}</p>
+              </div>
+              <div className="ml-auto text-sm text-muted-foreground">
+                {new Date(activity.created_at).toLocaleTimeString()}
+              </div>
+            </div>
+          ))
+        ) : (
+          <p className="text-sm text-muted-foreground">No recent activity.</p>
+        )}
+      </CardContent>
+    </Card>
   )
 }
