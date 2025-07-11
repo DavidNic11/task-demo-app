@@ -5,7 +5,7 @@ function
 with the one
 below:
 
-```tsx
+\`\`\`tsx
 export async function signup(formData: FormData) {
   const supabase = createClient()
 
