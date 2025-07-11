@@ -11,7 +11,7 @@ export async function createTask(formData: FormData) {
   } = await supabase.auth.getUser()
 
   if (!user) {
-    throw new Error("Authentication required")
+    return { success: false, message: "Authentication required" }
   }
 
   const taskData = {
@@ -19,20 +19,47 @@ export async function createTask(formData: FormData) {
     description: formData.get("description") as string,
     priority: formData.get("priority") as "low" | "medium" | "high",
     status: formData.get("status") as "todo" | "in_progress" | "review" | "done",
-    due_date: formData.get("dueDate") as string,
+    due_date: (formData.get("dueDate") as string) || null,
     assignee_id: formData.get("assigneeId") as string,
+    user_id: user.id,
   }
 
   const { error } = await supabase.from("tasks").insert(taskData)
 
   if (error) {
     console.error("Error creating task:", error)
-    throw new Error("Could not create task.")
+    return { success: false, message: "Could not create task." }
   }
 
-  revalidatePath("/tasks")
-  revalidatePath("/")
+  revalidatePath("/(dashboard)/tasks", "layout")
+  revalidatePath("/(dashboard)/board", "layout")
+  revalidatePath("/(dashboard)", "layout")
   redirect("/tasks")
+}
+
+export async function updateTask(taskId: number, formData: FormData) {
+  const supabase = createClient()
+
+  const taskData = {
+    title: formData.get("title") as string,
+    description: formData.get("description") as string,
+    priority: formData.get("priority") as "low" | "medium" | "high",
+    status: formData.get("status") as "todo" | "in_progress" | "review" | "done",
+    due_date: (formData.get("dueDate") as string) || null,
+    assignee_id: formData.get("assigneeId") as string,
+  }
+
+  const { error } = await supabase.from("tasks").update(taskData).eq("id", taskId)
+
+  if (error) {
+    console.error("Error updating task:", error)
+    return { success: false, message: "Could not update task." }
+  }
+
+  revalidatePath("/(dashboard)/tasks", "layout")
+  revalidatePath("/(dashboard)/board", "layout")
+  revalidatePath("/(dashboard)", "layout")
+  return { success: true, message: "Task updated successfully." }
 }
 
 export async function updateTaskStatus(taskId: number, isCompleted: boolean) {
@@ -46,8 +73,9 @@ export async function updateTaskStatus(taskId: number, isCompleted: boolean) {
     throw new Error("Could not update task status.")
   }
 
-  revalidatePath("/tasks")
-  revalidatePath("/")
+  revalidatePath("/(dashboard)/tasks", "layout")
+  revalidatePath("/(dashboard)/board", "layout")
+  revalidatePath("/(dashboard)", "layout")
 }
 
 export async function deleteTask(taskId: number) {
@@ -60,6 +88,7 @@ export async function deleteTask(taskId: number) {
     throw new Error("Could not delete task.")
   }
 
-  revalidatePath("/tasks")
-  revalidatePath("/")
+  revalidatePath("/(dashboard)/tasks", "layout")
+  revalidatePath("/(dashboard)/board", "layout")
+  revalidatePath("/(dashboard)", "layout")
 }
