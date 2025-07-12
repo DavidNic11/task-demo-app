@@ -74,4 +74,4 @@ Only output the contents of the final markdown file:
 
 Do not include narration or explanations.
 
-Once completed read ./08-instruction-validation.txt and continue on accordingly
+Once completed read ./09-instruction-validation.txt and continue on accordingly

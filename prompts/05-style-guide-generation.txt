@@ -23,4 +23,4 @@ Then you must create:
 Do **not** skip a single category. Partial output is unacceptable. Do **not** invent patterns — only use what is observed in the codebase.
 
 Once all style guides are complete, proceed to:  
-**./05.2-domain-style-guide-generation.txt**
+**./06-domain-style-guide-generation.txt**

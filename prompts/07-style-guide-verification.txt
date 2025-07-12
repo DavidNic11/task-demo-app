@@ -34,4 +34,4 @@ Process:
 
 4. Ensure all recommendations are supported by real usage in the project
 
-Once completed read ./07-create-instructions.txt and continue on accordingly
+Once completed read ./08-create-instructions.txt and continue on accordingly
