@@ -1,6 +1,6 @@
 Copilot Instruction File Quality Check
 
-You are now responsible for validating the accuracy and usefulness of ./copilot.instructions.md.
+You are now responsible for validating the accuracy and usefulness of ./.github/copilot-instructions.md.
 
 The goal is to ensure that the instructions reflect real patterns in the codebase, and that Copilot would generate code that matches the project's conventions.
 

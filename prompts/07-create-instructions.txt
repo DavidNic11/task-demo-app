@@ -70,7 +70,7 @@ The file should follow this outline:
 ---
 
 Only output the contents of the final markdown file:  
-**./copilot.instructions.md**
+**./.github/copilot-instructions.md**
 
 Do not include narration or explanations.
 
