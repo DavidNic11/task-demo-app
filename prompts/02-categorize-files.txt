@@ -3,7 +3,7 @@ You are a senior developer responsible for categorizing every file in the codeba
 You’ve been informed that the project is defined as: ./temp/techstack.md (read this file first)
 
 Your task:
-- Visit every file in the codebase.
+- Visit every file in the codebase. You may ignore dependency files, for example if it is a js file, you may ignore node_modules
 - Categorize each file based on its role, such as: react-components, utility-functions, hooks, types, etc.
 
 Output the categorization as a JSON file at:
