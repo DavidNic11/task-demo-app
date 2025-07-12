@@ -1,0 +1,26 @@
+⏳ This task may take time — that is expected and required.
+
+You are a senior software engineer responsible for generating style guides for each **category** listed in ./temp/categorization.json.
+
+You must:
+- Review **every individual file** listed under each category
+- Use only real patterns found in those files
+- Create **one markdown file per category**
+
+⚠️ You must create a separate file for **each category**, with no omissions.
+
+Required output files:
+For example, if the categories are:
+- react-components
+- api-clients
+- hooks
+
+Then you must create:
+- ./style-guides/react-components.md
+- ./style-guides/api-clients.md
+- ./style-guides/hooks.md
+
+Do **not** skip a single category. Partial output is unacceptable. Do **not** invent patterns — only use what is observed in the codebase.
+
+Once all style guides are complete, proceed to:  
+**./05.2-domain-style-guide-generation.txt**

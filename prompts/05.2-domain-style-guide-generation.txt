@@ -1,0 +1,26 @@
+⏳ This task may take time — that is expected and required.
+
+You are a senior software engineer responsible for generating style guides for each **architectural domain** listed in ./temp/architecture-domains.json.
+
+You must:
+- Use the insights found in ./temp/{domain}.md for each domain
+- Use only patterns and examples found in real code
+- Create **one markdown file per domain**
+
+⚠️ You must create a separate file for **each domain**, with no omissions.
+
+Required output files:
+For example, if the domains are:
+- state-management
+- routing
+- data-layer
+
+Then you must create:
+- ./style-guides/state-management.md
+- ./style-guides/routing.md
+- ./style-guides/data-layer.md
+
+Do **not** skip any domains. Do **not** guess or invent conventions. Only document patterns actually found in the codebase.
+
+Once all domain style guides are complete, proceed to:  
+**./06-style-guide-verification.txt**
