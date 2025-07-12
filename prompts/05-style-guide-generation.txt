@@ -1,3 +1,16 @@
+⏳ This task may take some time — that is expected and acceptable.
+
+Do **not** skip files or produce partial results due to time or complexity. Accuracy and completeness are **mission-critical**.
+
+You are permitted to take as long as necessary to:
+- Review every relevant file
+- Extract actual patterns and conventions
+- Produce complete, high-fidelity output
+
+If a file is listed in ./temp/categorization.json or is part of a relevant domain, it **must** be included in your analysis.
+
+⚠️ Do not optimize for speed or brevity. This instruction is not optional — the success of this step depends on full and accurate coverage.
+
 Style Guide Creation Instructions  
 You are a senior software engineer responsible for creating style guides from project files.
 

@@ -1,5 +1,18 @@
 You're analyzing a codebase with the goal of understanding its structure and major concerns. The tech stack is summarized in ./temp/techstack.md. Categorized files are listed in ./temp/categorization.json.
 
+⏳ This task may take some time — that is expected and acceptable.
+
+Do **not** skip files or produce partial results due to time or complexity. Accuracy and completeness are **mission-critical**.
+
+You are permitted to take as long as necessary to:
+- Review every relevant file
+- Extract actual patterns and conventions
+- Produce complete, high-fidelity output
+
+If a file is listed in ./temp/categorization.json or is part of a relevant domain, it **must** be included in your analysis.
+
+⚠️ Do not optimize for speed or brevity. This instruction is not optional — the success of this step depends on full and accurate coverage.
+
 Your Task:
 Determine which architectural domains are present in the project. Consider:
 - File structure and naming patterns
@@ -37,5 +50,6 @@ Write a JSON array to ./temp/architecture-domains.json like so:
 ]
 
 Only include domains you find concrete evidence for based on the actual codebase.
+
 
 Once completed read ./04-per-domain-deep-dive.txt and continue on accordingly
