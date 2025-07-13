@@ -21,7 +21,7 @@ The goal is to ensure that the instructions reflect real patterns in the codebas
 
 2. **Simulate Copilot Output**
    For 2–3 categories (e.g., react-components, hooks), choose one real file per category and answer the question:
-   > “If Copilot followed these instructions and was asked to create a new version of this file, what would it generate?”
+   > "If Copilot followed these instructions and was asked to create a new version of this file, what would it generate?"
 
    - Generate the *expected* code Copilot might produce.
    - Then compare that simulated code to the real file found in the project.
@@ -55,4 +55,4 @@ Each entry should include:
 - Simulations should be realistic — what Copilot would actually output, not idealized examples
 - Prioritize usefulness: would this instruction file help Copilot produce high-quality, idiomatic project code?
 
-Do not output anything except the markdown content of ./temp/instruction-validation.md
+Once completed read ./09a-domain-validation.txt and continue on accordingly
