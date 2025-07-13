@@ -1,0 +1,65 @@
+Final Instruction File Refinement
+
+Based on the domain validation results, make final improvements to the Copilot instruction file.
+
+---
+
+## Available Context:
+
+- ./copilot.instructions.md — current instruction file
+- ./temp/domain-validation.md — test results showing where instructions need strengthening
+- ./temp/architecture-domains.json — required patterns and anti-patterns
+- ./temp/techstack.md — domain boundaries and constraints
+
+---
+
+## Your Task:
+
+Update the instruction file to address any gaps found in domain validation testing.
+
+**Focus Areas:**
+
+1. **Strengthen Domain Boundaries**
+   - Make the application purpose and scope crystal clear
+   - Add explicit "DO NOT" statements for inappropriate feature types
+   - Include examples of requests that should be rejected
+
+2. **Emphasize Required Patterns**
+   - Make mandatory service usage more prominent
+   - Add validation checklists that are hard to miss
+   - Include consequences of bypassing required patterns
+
+3. **Clarify Anti-Patterns**
+   - Be more explicit about what approaches are forbidden
+   - Provide clear examples of incorrect implementations
+   - Explain why certain patterns don't fit this domain
+
+4. **Add Feature Request Guidance**
+   - Include a section on evaluating whether new features fit the domain
+   - Provide decision trees or criteria for feature appropriateness
+   - Give examples of how to adapt inappropriate requests to fit the architecture
+
+**Specific Improvements Based on Validation:**
+
+For each gap identified in ./temp/domain-validation.md:
+- Add explicit instruction text to prevent that mistake
+- Include examples that clarify the correct approach
+- Strengthen language around architectural requirements
+
+---
+
+## Output:
+
+Update the existing file:  
+**./copilot.instructions.md**
+
+The goal is to create instructions so clear and comprehensive that they would have prevented the Binary Tree architectural mismatch and similar issues.
+
+Key success criteria:
+- ✅ Domain boundaries are unmistakable
+- ✅ Required patterns are impossible to miss
+- ✅ Anti-patterns are explicitly forbidden with examples
+- ✅ Feature request evaluation guidance is provided
+- ✅ Validation checklists are prominently placed
+
+Once completed, the instruction file should be robust enough to guide Copilot properly regardless of the complexity or appeal of inappropriate feature requests.
