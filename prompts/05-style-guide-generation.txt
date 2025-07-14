@@ -22,5 +22,6 @@ Then you must create:
 
 Do **not** skip a single category. Partial output is unacceptable. Do **not** invent patterns — only use what is observed in the codebase.
 
-Once all style guides are complete, proceed to:  
-**./06-domain-style-guide-generation.txt**
+**Use ./template/file-category-styleguide.md as guidance for the style guide**
+
+
