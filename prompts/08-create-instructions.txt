@@ -19,8 +19,8 @@ This file will guide future Copilot behavior. Accuracy and alignment with the co
 
 ## Available Context:
 
-1. ./temp/techstack.md — describes the languages, frameworks, libraries, and tools used in the project.
-2. ./temp/architecture-domains.json — lists the architectural domains present in the codebase (e.g., "ui", "state-management", "data-layer").
+1. ./temp/techstack.md — describes the languages, frameworks, libraries, tools, AND domain boundaries used in the project.
+2. ./temp/architecture-domains.json — lists the architectural domains, required patterns, constraints, and anti-patterns.
 3. ./temp/{domain}.md — contains detailed analysis and real examples for each domain listed above.
 4. ./style-guides/*.md — contains exact patterns and conventions found in the codebase, categorized by file type (e.g., react-components, hooks, api-clients).
 
@@ -31,7 +31,7 @@ This file will guide future Copilot behavior. Accuracy and alignment with the co
 Generate a single markdown file:  
 **`./copilot.instructions.md`**
 
-The purpose of this file is to help Copilot generate code that aligns with the actual conventions and patterns used in this project.
+The purpose of this file is to help Copilot generate code that aligns with the actual conventions and patterns used in this project, AND prevent architectural violations.
 
 ---
 
@@ -41,22 +41,45 @@ The file should follow this outline:
 
 1. **Tech Stack**  
    - Summarize the languages, frameworks, libraries, and tools used in the project  
-   - Source: `./temp/techstack.md`
+   - **NEW**: Include the domain boundaries and application scope from techstack.md
 
 2. **Architectural Overview**  
    - List each domain found in `architecture-domains.json`  
    - Briefly describe how each domain is implemented, based on `./temp/{domain}.md`
 
-3. **Conventions by Category**  
+3. **Domain Boundaries** (NEW SECTION)
+   - Clearly state what type of application this is and its primary purpose
+   - Define what types of features ARE within scope
+   - **Explicitly state what types of features are NOT appropriate** for this application
+   - Include the anti-patterns from architecture-domains.json
+
+4. **Required Architecture Patterns** (NEW SECTION)
+   - List the mandatory patterns from architecture-domains.json that MUST be followed
+   - Include the architectural constraints that cannot be violated
+   - Provide examples of the ONLY acceptable way to implement certain features
+
+5. **Conventions by Category**  
    - For each category found in `./style-guides/*.md`, summarize coding conventions and patterns  
    - Include representative examples or code snippets taken directly from the style guide
 
-4. **Behavioral Summary for Copilot**  
+6. **Anti-Patterns - DO NOT IMPLEMENT** (NEW SECTION)
+   - List specific approaches that should never be used
+   - Include examples of what NOT to do
+   - Reference the anti-patterns from architecture-domains.json
+
+7. **Implementation Validation Checklist** (NEW SECTION)
+   - Provide a checklist that can be used to verify new features follow the architecture
+   - Include required services/hooks that must be used
+   - Include patterns that must be followed
+
+8. **Behavioral Summary for Copilot**  
    - Summarize how Copilot should behave, **based only on what is actually found in the project**
+   - **NEW**: Include guidance on rejecting inappropriate feature requests that don't fit the domain
    - Examples:
-     - “Use Zustand for state management (found in `stores/`)”
-     - “Use React Query’s `useQuery` and `useMutation` hooks for data fetching”
-     - “Use `clsx` for conditional class names”
+     - "Use Zustand for state management (found in `stores/`)"
+     - "Use React Query's `useQuery` and `useMutation` hooks for data fetching"
+     - "Use `clsx` for conditional class names"
+     - **"This is a chaos game theory application - do not implement non-point-based fractals"**
 
 ---
 
@@ -64,10 +87,13 @@ The file should follow this outline:
 
 - Base all content exclusively on the provided files — do not include outside best practices or assumptions
 - Do not include features, libraries, or patterns not observed in the actual project
+- **NEW**: Include explicit constraints and anti-patterns to prevent architectural violations
 - Use concise section headings, bullet points, and real examples
-- Be practical — this file should directly influence how Copilot generates future code
+- Be practical — this file should directly influence how Copilot generates future code AND prevents inappropriate additions
 
 ---
+
+The goal is to create instructions that not only guide good code generation but also prevent architectural mistakes like implementing features that don't belong in this specific application domain.
 
 Only output the contents of the final markdown file:  
 **./.github/copilot-instructions.md**

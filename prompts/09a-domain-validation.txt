@@ -1,0 +1,76 @@
+Domain-Specific Feature Validation
+
+This is a new validation step to ensure the generated instructions properly guide Copilot to respect domain boundaries and architectural constraints.
+
+---
+
+## Available Context:
+
+- ./copilot.instructions.md — the instruction file you are testing
+- ./temp/techstack.md — includes domain boundaries and application scope
+- ./temp/architecture-domains.json — required patterns, constraints, and anti-patterns
+- ./style-guides/*.md — actual patterns found in the codebase
+
+---
+
+## Your Task:
+
+Test whether the instruction file would properly guide Copilot to reject inappropriate features and enforce architectural patterns.
+
+1. **Domain Boundary Testing**
+   Create 3-5 hypothetical feature requests that would be architecturally inappropriate based on the domain analysis:
+   
+   Examples for a chaos game theory app:
+   - "Add a Binary Tree fractal using recursive line drawing"
+   - "Create a 3D visualization using Three.js"
+   - "Add a Mandelbrot set with pixel-based rendering"
+   - "Implement a shopping cart feature"
+   
+   For each request, ask:
+   > "Based on the instruction file, would Copilot properly reject this or implement it incorrectly?"
+
+2. **Required Pattern Testing**
+   Create 2-3 requests for appropriate features that should use specific existing services:
+   
+   Examples:
+   - "Add a new chaos game fractal for a hexagon"
+   - "Create controls for adjusting scaling factors"
+   - "Add color animation for fractal points"
+   
+   For each request, verify:
+   > "Would Copilot use the required hooks/services (e.g., useCanvas, useChaosGame) or create custom implementations?"
+
+3. **Anti-Pattern Detection**
+   Simulate what code Copilot might generate for the appropriate features. Check if it would:
+   - Bypass existing services (like useCanvas)
+   - Use wrong rendering approaches (line drawing vs point plotting)
+   - Skip established patterns (chaos game algorithms)
+
+---
+
+## Output:
+
+Write your results to:  
+**./temp/domain-validation.md**
+
+For each test case, include:
+- 🎯 **Feature Request**: The hypothetical request
+- 📋 **Expected Behavior**: What Copilot should do based on instructions
+- ⚠️ **Risk Assessment**: Whether the instructions are clear enough to prevent mistakes
+- 🔧 **Instruction Gaps**: What's missing from the instruction file to handle this properly
+
+If you find cases where the instructions wouldn't properly guide Copilot, suggest specific additions to prevent those architectural violations.
+
+---
+
+## Success Criteria:
+
+The instruction file should be strong enough that Copilot would:
+- ✅ Reject features outside the application domain
+- ✅ Always use required services/hooks for appropriate features  
+- ✅ Follow established architectural patterns
+- ✅ Avoid anti-patterns identified in the analysis
+
+This validation helps ensure the instructions prevent the exact type of architectural mismatch that occurred with the Binary Tree implementation.
+
+Once completed read ./10-final-instruction-update.txt and continue on accordingly
